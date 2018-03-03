@@ -6,12 +6,12 @@ from werkzeug.security import generate_password_hash,check_password_hash
 db=SQLAlchemy()
 
 class Base(db.Model):
-    __abstact__=True
+    __abstract__=True
     created_at=db.Column(db.DateTime,default=datetime.utcnow)
     updated_at=db.Column(db.DateTime,default=datetime.utcnow,onupdate=datetime.utcnow)
 
 class User(Base):
-    __tablename__='user':
+    __tablename__='user'
    
     ROLE_USER=10 
     ROLE_COMPANY=20 
@@ -50,8 +50,8 @@ class Company(Base):
     address=db.Column(db.String(128),nullable=False)
     logo=db.Column(db.String(64),nullable=False)
     fund=db.Column(db.String(256),nullable=False) 
-    scale=db.Column(db.Sring(64),nullable=False)  
-    filed=db.Colum(db.String(128),nullable=False) 
+    scale=db.Column(db.String(64),nullable=False)  
+    filed=db.Column(db.String(128),nullable=False) 
     detile=db.Column(db.String(64),nullable=False) 
     def __repr__(self):
         return '<Company{}>'.format(self.name)
@@ -60,7 +60,7 @@ class Job(Base):
     id=db.Column(db.Integer,primary_key=True)
     jobname=db.Column(db.String(32),unique=True,index=True,nullable=False)  
     salary=db.Column(db.String(32),nullable=False)
-    requir=db.Column(db.String(258),nullabe=False)
+    requir=db.Column(db.String(258),nullable=False)
     time=db.Column(db.String(64),nullable=False)
     def __repr__(self):
         return '<Job{}>'.format(self.jobname)
