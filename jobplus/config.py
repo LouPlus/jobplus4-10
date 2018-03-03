@@ -12,7 +12,7 @@ class TestingConfig(BaseConfig):
 
 configs={
     'develpoment':DevelopmentConfig,
-    'production':ProduvtionConfig,
+    'production':ProductionConfig,
     'testing':TestingConfig
 }
 
