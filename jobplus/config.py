@@ -11,8 +11,8 @@ class TestingConfig(BaseConfig):
     pass
 
 configs={
-    'development':DevelopmentConfig,
-     'production':ProductionConfig,
+    'develpoment':DevelopmentConfig,
+    'production':ProductionConfig,
     'testing':TestingConfig
 }
 
