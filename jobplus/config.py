@@ -1,4 +1,3 @@
-
 class BaseConfig(object):
     '''p配置基类'''
     SECRET_KEY='make sure to set a very secret key'
