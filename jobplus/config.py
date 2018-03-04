@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 class BaseConfig(object):
     '''p配置基类'''
     SECRET_KEY='make sure to set a very secret key'
@@ -13,9 +12,8 @@ class TestingConfig(BaseConfig):
     pass
 
 configs={
-    'develpoment':DevelopmentConfig,
+    'development':DevelopmentConfig,
     'production':ProductionConfig,
     'testing':TestingConfig
 }
->>>>>>> dev
 
