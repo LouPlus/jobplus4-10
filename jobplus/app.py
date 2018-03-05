@@ -30,5 +30,5 @@ def create_app(config):
     app.config.from_object(configs.get(config))
     register_extensions(app)
     register_blueprints(app)
-    
+    return app
 
