@@ -43,4 +43,3 @@ def logout():
     flash('安全退出','success')
     return redirect(url_for('front.index'))
 
-
