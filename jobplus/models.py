@@ -2,6 +2,7 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
+from flask import url_for
 
 
 db=SQLAlchemy()
@@ -24,8 +25,9 @@ class User(Base,UserMixin):
     _password=db.Column('password',db.String(256),nullable=False)
     role=db.Column(db.SmallInteger,default=ROLE_USER)
     resume_url=db.Column(db.String(64))
-    phone=db.Column(db.Integer)
-
+    phone=db.Column(db.String(32))
+    is_disable=db.Column(db.Boolean,default=False)
+    detail = db.relationship('Company', uselist=False)
     def __repr__(self):
         return '<User:{}>'.format(self.username)
     @property
@@ -53,18 +55,36 @@ class Company(Base):
     fund=db.Column(db.String(256)) 
     scale=db.Column(db.String(64))  
     filed=db.Column(db.String(128)) 
-    detile=db.Column(db.String(64)) 
+    detail=db.Column(db.String(64))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='SET NULL'))
+    user = db.relationship('User', uselist=False, backref=db.backref('company_detail', uselist=False))
     def __repr__(self):
         return '<Company{}>'.format(self.name)
+    @property
+    def url(self):
+        return url_for('company.detail',company_id=self.id)
+
 class Job(Base):
     __tablename__='job'
     id=db.Column(db.Integer,primary_key=True)
-    jobname=db.Column(db.String(32),unique=True,index=True,nullable=False)  
-    salary=db.Column(db.String(32),nullable=False)
-    requir=db.Column(db.String(258),nullable=False)
-    time=db.Column(db.String(64),nullable=False)
+    name=db.Column(db.String(32),unique=True,index=True,nullable=False)
+    salary_low=db.Column(db.Integer,nullable=False)
+    salary_high=db.Column(db.Integer,nullable=False)
+    location=db.Column(db.String(64))
+    tags=db.Column(db.String(128))
+    degree_requirment=db.Column(db.String(256))
+    time=db.Column(db.String(64))
+    is_open=db.Column(db.Boolean,default=False)
+    company_id=db.Column(db.Integer,db.ForeignKey('user.id',ondelete='CASCADE'))
+    company=db.relationship('User',uselist=False,backref=db.backref('jobs',lazy='dynamic'))
+    view_count=db.Column(db.Integer,default=0)
+
     def __repr__(self):
         return '<Job{}>'.format(self.jobname)
+    @property
+    def tag_list(self):
+        return self.tags.split(',')
+
 class Delivery(Base):
     __tablename__='delivery'
     STATUS_WAITING=1
