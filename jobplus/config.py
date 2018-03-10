@@ -8,7 +8,7 @@ class BaseConfig(object):
     UPLOADED_RESUME_FILE=os.getcwd()
 class DevelopmentConfig(BaseConfig):
     DEBUG=True
-    SQLALCHEMY_DATABASE_URI='mysql+mysqldb://root:shasha223@localhost:3306/jobplus?charset=utf8'
+    SQLALCHEMY_DATABASE_URI='mysql+mysqldb://root@localhost:3306/jobplus?charset=utf8'
 
 class ProductionConfig(BaseConfig):
     pass
